@@ -23,9 +23,68 @@ This script is to show in lines of code how to scrape tweets from Twitter's user
     * [Who and what other users are talking about a certain Topic or User](#Who-and-what-other-users-are-talking-about-a-certain-Topic-or-User)
 
 
-Setup of the Jupyter Notebook
------------------------------
+# Setup of the Jupyter Notebook
 
- YOu must install 3 packages( 3 separados, se usan los dos puntos para que salga el codigo)
-luego se dice que pongan los import y explicar cada uno de ellos
-lo mismo de los downloads
+Install
+-------
+
+ You must install 3 packages separately.
+ 
+ Spacy:
+ ```bash
+pip install Spacy 
+```
+
+setuptools wheel:
+ ```bash
+pip install setuptools wheel
+```
+ Tweepy:
+ ```bash
+pip install Tweepy 
+```
+
+Imports
+-------
+
+```bash
+import tweepy
+
+import configparser
+
+import pandas as pd
+
+import re
+
+import spacy
+
+import nltk
+
+import matplotlib.pyplot as plt; plt.rcdefaults()
+
+import numpy as np
+
+import matplotlib.pyplot as plt
+
+import seaborn as sns
+
+from spacy import displacy
+
+from collections import Counter
+
+import en_core_web_sm
+
+from spacy.lang.en import English
+
+from nltk.probability import FreqDist
+```
+
+Downloads
+-------
+
+```bash
+!python -m spacy download en_core_web_lg
+!python -m spacy download en_core_web_sm
+```
+
+# Implement Twitter Keys
