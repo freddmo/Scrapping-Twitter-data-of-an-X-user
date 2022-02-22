@@ -25,8 +25,7 @@ This script is to show in lines of code how to scrape tweets from Twitter's user
 
 ## Setup of the Jupyter Notebook
 
-Install
--------
+### Install
 
  You must install 3 packages separately.
  
@@ -44,8 +43,7 @@ pip install setuptools wheel
 pip install Tweepy 
 ```
 
-Imports
--------
+### Imports
 
 ```bash
 import tweepy
@@ -79,15 +77,14 @@ from spacy.lang.en import English
 from nltk.probability import FreqDist
 ```
 
-Downloads
--------
+### Downloads
 
 ```bash
 !python -m spacy download en_core_web_lg
 !python -m spacy download en_core_web_sm
 ```
 
-## Implement Twitter Keys
+## Implementation of Twitter Keys
 
 Texto
 ```bash
@@ -113,7 +110,7 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 ```
 
-## Who we will use as an example? Elon Musk
+### Who we will use as an example? Elon Musk
 ```bash
 limit = 200
 
@@ -129,7 +126,7 @@ df_ET = pd.DataFrame(elon_tweets_list, columns=columns)  # df_Elon_tweets
 df_ET
 ```
 
-## Further analisis of Elon's Tweet
+### Further analisis of Elon's Tweet
 ```bash
 limit = 200
 
@@ -144,7 +141,7 @@ for tweet in E_tweets:
     
 elon_data
 ``` 
-## Pre-process the data
+### Pre-process the data
 
 Now that we have all sentences separated we repeat the process to get every word.
 ```bash
@@ -185,3 +182,27 @@ for word in lines_V3:
 
 lines_V4
 ``` 
+## OUTPUTS
+
+### Most-recent tweets in the user's Timeline
+
+
+Date and Time Created      | Likes         | Tweet
+-------------------------- | ------------- | -------------
+2022-02-20 22:25:19+00:00  | 17025         | @TPostMillennial Hypocritical megadouche!
+2022-02-20 22:24:03+00:00  | 59350         | @SawyerMerritt Will visit IRS next time I’m in...
+2022-02-20 09:43:28+00:00  | 1967          | @ID_AA_Carmack True
+2022-02-20 08:51:40+00:00  | 11972         | @Erdayastronaut @Twitter @jack @TwitterComms S.
+
+### Most used words in the user's Tweets
+![image](https://user-images.githubusercontent.com/70821494/155210650-db82bd6f-5816-489b-af86-d00c5c6c41d1.png)
+
+### Users and their tweets about Elon Musk
+
+Users      | Tweet                                            | Created at                | Likes 
+---------- | ------------------------------------------------ | ------------------------- | -----
+jao_bala1  | elon musk                                        | 2022-02-21 04:59:18+00:00 | 0
+SpilDil    | IM SELLING BITCOIN LIVE! COMPLETELY REAL WITH ...| 2022-02-21 04:58:35+00:00 | 0
+cda621     | @flurnft Elon Musk, Nikola Tesla and other leg...| 2022-02-21 04:58:00+00:00 | 0
+phat_yap   | @Uglyrat441 @TripSquadGoblin @DmanGrog @JDfrom...| 2022-02-21 04:57:54+00:00 | 1
+
