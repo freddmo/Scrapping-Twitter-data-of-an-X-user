@@ -23,7 +23,7 @@ This script is to show in lines of code how to scrape tweets from Twitter's user
     * [Who and what other users are talking about a certain Topic or User](#Who-and-what-other-users-are-talking-about-a-certain-Topic-or-User)
 
 
-# Setup of the Jupyter Notebook
+## Setup of the Jupyter Notebook
 
 Install
 -------
@@ -87,4 +87,101 @@ Downloads
 !python -m spacy download en_core_web_sm
 ```
 
-# Implement Twitter Keys
+## Implement Twitter Keys
+
+Texto
+```bash
+config = configparser.ConfigParser()
+
+config.read('config.ini')
+```
+
+Set the respectives keys
+```bash
+api_key = config['twitter']['api_key']
+api_key_secret = config['twitter']['api_key_secret']
+access_token = config['twitter']['access_token']
+access_token_secret = config['twitter']['access_token_secret']
+```
+
+Set the API
+```bash
+auth = tweepy.OAuthHandler(api_key, api_key_secret)
+
+auth.set_access_token(access_token, access_token_secret)
+
+api = tweepy.API(auth)
+```
+
+## Who we will use as an example? Elon Musk
+```bash
+limit = 200
+
+elon_tweets = tweepy.Cursor(api.user_timeline, id='elonmusk', tweet_mode ='extended').items(limit)
+
+elon_tweets_list = [[tweet.created_at,tweet.favorite_count, tweet.full_text] for tweet in elon_tweets]
+
+
+columns = ['Time','Likes','Tweet']
+
+df_ET = pd.DataFrame(elon_tweets_list, columns=columns)  # df_Elon_tweets
+
+df_ET
+```
+
+## Further analisis of Elon's Tweet
+```bash
+limit = 200
+
+E_tweets = tweepy.Cursor(api.user_timeline, id='elonmusk',
+                           count=100, tweet_mode ='extended').items(limit)
+
+elon_data = []
+
+for tweet in E_tweets:
+    elon_data.append(tweet.full_text)
+   
+    
+elon_data
+``` 
+## Pre-process the data
+
+Now that we have all sentences separated we repeat the process to get every word.
+```bash
+Sentences = []
+
+for word in elon_data:
+    Sentences.append(word)
+    
+lines = list()
+
+for line in Sentences:
+    words = line.split()
+    
+    for w in words:
+        lines.append(w)
+        
+print(lines)
+``` 
+
+To eliminate all characters thata weren't in the alphabet I used the 
+```bash
+lines_V2 = [re.sub(r'[^A-Za-z0-9]+', '', x) for x in lines]  #lines_version_2
+
+lines_V3 = []
+
+for word in lines_V2:
+    if word != 'RT' and word != '' and word != 'I':
+        lines_V3.append(word)
+
+
+nlp = spacy.load('en_core_web_lg')
+
+lines_V4 = []
+
+for word in lines_V3:
+    if word not in nlp.Defaults.stop_words:
+        lines_V4.append(word)
+
+lines_V4
+``` 
